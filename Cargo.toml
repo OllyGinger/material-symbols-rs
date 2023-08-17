@@ -1,0 +1,18 @@
+[package]
+name = "material-symbols"
+version = "0.1.0"
+edition = "2021"
+authors = ["caelunshun"]
+description = "Generated code to reference Material Symbols via an enum"
+keywords = ["material", "symbols", "icon", "ui", "gui"]
+categories = ["gui"]
+documentation = "https://docs.rs/material-symbols"
+repository = "https://github.com/caelunshun/material-symbols-rs"
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+
+[build-dependencies]
+heck = "0.4"
+quote = "1"
+syn = "2"
