@@ -8,6 +8,7 @@ fn main() {
 
     let mut idents = Vec::new();
     let mut match_arms = Vec::new();
+    let mut codepoint_match_arms = Vec::new();
     for line in codepoints.lines() {
         let line = line.trim();
         if line.is_empty() {
@@ -16,6 +17,8 @@ fn main() {
 
         let space = line.find(' ').expect("malformed codepoints.txt");
         let symbol = &line[..space];
+        let codepoint = u32::from_str_radix(&line[space + 1..], 16)
+            .expect(&format!("malformed codepoints.txt (invalid codepoint in: \"{}\")", line));
         let mut symbol_pascal_case = symbol.to_pascal_case();
 
         if !symbol_pascal_case
@@ -27,10 +30,14 @@ fn main() {
             symbol_pascal_case = format!("_{symbol_pascal_case}");
         }
         let ident = format_ident!("{symbol_pascal_case}");
-
+        let codepoint_char = std::char::from_u32(codepoint);
         idents.push(ident.clone());
         match_arms.push(quote! {
             Symbol::#ident => #symbol
+        });
+
+        codepoint_match_arms.push(quote! {
+            Symbol::#ident => {#codepoint_char}
         });
     }
 
@@ -46,6 +53,13 @@ fn main() {
             pub fn name(self) -> &'static str {
                 match self {
                     #(#match_arms,)*
+                }
+            }
+
+            #[doc = "Returns the snake_case name of this symbol, which corresponds to the ligature used to render it."]
+            pub fn codepoint(self) -> char {
+                match self {
+                    #(#codepoint_match_arms,)*
                 }
             }
         }

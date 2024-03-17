@@ -13,4 +13,10 @@ mod tests {
     fn symbol_works() {
         assert_eq!(Symbol::Menu.name(), "menu");
     }
+
+
+    #[test]
+    fn codepoint_works() {
+        assert_eq!(Symbol::Menu.codepoint(), '\u{e5d2}');
+    }
 }
