@@ -1,8 +1,8 @@
 [package]
 name = "material-symbols"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
-authors = ["caelunshun"]
+authors = ["caelunshun", "OllyGinger"]
 description = "Generated code to reference Material Symbols via an enum"
 keywords = ["material", "symbols", "icon", "ui", "gui"]
 categories = ["gui"]
